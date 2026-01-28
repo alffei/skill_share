@@ -8,9 +8,13 @@
 
 ```text
 .
-├── spec-architect/        # 技能文件夹
-│   ├── SKILL.md           # 技能指令定义
-│   └── resources/         # 技能依赖的模板或资源
+├── spec-architect/           # Spec 架构师技能
+│   ├── SKILL.md
+│   └── resources/
+├── ruoyi-code-generator/     # 若依代码生成器技能
+│   ├── SKILL.md
+│   ├── templates/            # 代码生成模板
+│   └── references/           # 参考文档
 └── README.md
 ```
 
@@ -23,6 +27,17 @@
 1. **Phase 1: Requirements (需求定义)** - 将模糊想法转化为结构化的需求文档。
 2. **Phase 2: Design (架构设计)** - 基于需求生成架构图、数据模型和接口设计。
 3. **Phase 3: Planning (任务拆解)** - 将设计拆解为可执行的原子化任务。
+
+### 2. [RuoYi-Code-Generator](./ruoyi-code-generator/SKILL.md)
+**角色**: 若依框架代码生成器
+**核心价值**: 基于数据表结构自动生成符合若依框架规范的完整 CRUD 代码，大幅提升开发效率。
+**生成内容**:
+- **Java 后端**: Domain、Mapper、Service、ServiceImpl、Controller
+- **MyBatis**: XML 映射文件
+- **Vue 前端**: API 封装、列表页面组件
+- **SQL 脚本**: 菜单初始化 SQL
+
+**适用场景**: 创建新模块、添加业务功能、根据表结构快速生成标准代码。
 
 ## 🚀 如何使用
 
