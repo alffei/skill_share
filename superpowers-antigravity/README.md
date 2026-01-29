@@ -23,8 +23,5 @@ Antigravity 会自动检索 `.agent/skills/` 目录。在处理任务时，Agent
 - `/execute-plan`：批量执行任务计划并进行阶段性审查。
 - `/git-commit`：按照规范生成中文提交信息。
 
-### 4. 项目准则 (CLAUDE.md)
-根目录下的 `CLAUDE.md` 已配置为强制要求 Agent 遵循这套 Superpowers 流程。
-
 ---
 *注：本项目中的能力集基于 Superpowers v4.x 移植。*
