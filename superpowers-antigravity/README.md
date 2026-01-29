@@ -9,7 +9,7 @@ Superpowers 是一套结构化的软件开发工作流，通过一系列互相�
 
 ### 1. 安装与设置
 Antigravity 依赖项目根目录下的 `.agent` 目录来识别技能和工作流。
-- **目录要求**：请将本仓库中的 `skills` 和 `workflows` 文件夹移动到项目根目录的 `.agent/` 目录下（如果该目录不存在，请手动创建）。
+- **目录要求**：请将本仓库中的 `skills` 、 `workflows`和 `rules` 文件夹移动到项目根目录的 `.agent/` 目录下（如果该目录不存在，请手动创建）。
 - **刷新配置**：在移动或更新 Workflows 后，您需要前往 Antigravity 的 **Customizations** 页面点击 **Refresh** 按钮，以确保斜杠命令生效。
 
 ### 2. 自动技能加载 (Skills)
