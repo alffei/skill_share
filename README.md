@@ -9,12 +9,10 @@
 ```text
 .
 ├── spec-architect/           # Spec 架构师技能
-│   ├── SKILL.md
-│   └── resources/
-├── ruoyi-code-generator/     # 若依代码生成器技能
-│   ├── SKILL.md
-│   ├── templates/            # 代码生成模板
-│   └── references/           # 参考文档
+├── RuoYi-Code-Generator/      # 若依代码生成器技能
+├── SpringBoot-Init/          # Spring Boot 初始化技能
+├── wechat-operation/         # 公众号运营技能
+├── superpowers-antigravity/  # Antigravity 核心能力集 (移植自 Superpowers)
 └── README.md
 ```
 
@@ -50,6 +48,26 @@
 
 **适用场景**: 新项目启航、基础架构统一、单体应用标准化。
 
+### 4. [WeChat-Operation](./wechat-operation/README.md)
+**角色**: 公众号运营专家
+**核心价值**: 覆盖从账号定位、选题策划到爆款创作的全流程，提升技术号运营效率。
+**关键特性**:
+- **全流程覆盖**: 包含定位、选题、标题、大纲、写作、案例、排版、迭代 8 个子技能。
+- **标准化模板**: 每个子技能均配套成熟的 Prompt 模板。
+- **技术特色**: 针对科技/工程类公众号优化，拒绝低质内容。
+
+**适用场景**: 公众号冷启动、技术文章创作、运营流程标准化。
+
+### 5. [Superpowers-Antigravity](./superpowers-antigravity/README.md)
+**角色**: 资深软件工程师 / 架构师
+**核心价值**: 移植自著名的 [Superpowers](https://github.com/obra/superpowers)，这是一套结构化的软件开发工作流，通过强制 Agent 遵循最佳工程实践，大幅提升开发成功率。
+**关键特性**:
+- **系统化调试**: 包含根因追踪、防御性编程等高级调试技能。
+- **标准化工作流**: 提供需求头脑风暴、任务拆解、批量执行等斜杠命令。
+- **质量保障**: 集成测试驱动开发 (TDD) 和严格的完成前验证流程。
+
+**适用场景**: 复杂业务开发、系统重构、深度 Bug 修复。
+
 ## 🚀 如何使用
 
 1. **克隆仓库**:
@@ -57,11 +75,15 @@
    git clone https://github.com/alffei/skill_share.git
    ```
 
-2. **添加技能**:
-   将你需要的技能文件夹（如 `spec-architect`）复制到你项目的 `.agent/skills/` 目录下。
+2. **添加技能与工作流**:
+   Antigravity 依赖项目根目录下的 `.agent` 目录来识别内容。
+   - **创建目录**: 如果项目根目录下没有 `.agent` 文件夹，请手动创建一个。
+   - **移动技能**: 将需要的技能文件夹（如 `spec-architect`）复制到 `.agent/skills/` 目录下。
+   - **移动工作流**: 将 `workflows` 文件夹复制到 `.agent/` 目录下。
 
-3. **激活技能**:
-   刷新你的 Agent 或是根据 `SKILL.md` 中的定义激活相应的指令。
+3. **激活与刷新**:
+   - **Skills**: 会在 Agent 处理任务时根据上下文自动加载。
+   - **Workflows**: 对于新增或修改的工作流，您需要前往 Antigravity 的 **Customizations** 页面点击 **Refresh** 按钮，以确保斜杠命令生效。
 
 ## ✍️ 贡献指南
 
@@ -71,4 +93,4 @@
 4. 提交 Pull Request！
 
 ---
-Built with AI 神经 for AI Agents.
+Built with [AI 神经] for AI Agents.
