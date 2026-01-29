@@ -39,6 +39,17 @@
 
 **适用场景**: 创建新模块、添加业务功能、根据表结构快速生成标准代码。
 
+### 3. [SpringBoot-Init](./springboot-init/SKILL.md)
+**角色**: 专业 Spring 开发架构师
+**核心价值**: 快速初始化高标准的 Spring Boot 项目骨架，集成最佳实践，避免重复搭建基础架构。
+**关键特性**:
+- **快速初始化**: 包含 `pom.xml`、`application.yml` 及核心基础类。
+- **强制规范**: 严格定义数据流向 (DTO/VO/Entity) 与事务管理。
+- **现代化**: 深度集成 JDK 17+ Record 与 MyBatis-Plus。
+- **自动工作流**: 提供项目初始化与业务模块新增的标准化操作流。
+
+**适用场景**: 新项目启航、基础架构统一、单体应用标准化。
+
 ## 🚀 如何使用
 
 1. **克隆仓库**:
@@ -60,4 +71,4 @@
 4. 提交 Pull Request！
 
 ---
-Built with ❤️ for AI Agents.
+Built with AI 神经 for AI Agents.
