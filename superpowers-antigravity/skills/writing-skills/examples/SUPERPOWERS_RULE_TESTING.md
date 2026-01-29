@@ -1,4 +1,4 @@
-# Testing CLAUDE.md Skills Documentation
+# Testing superpowers-rule.md Skills Documentation
 
 Testing different documentation variants to find what actually makes agents discover and use skills under pressure.
 
@@ -64,7 +64,7 @@ B) Just refactor it - you know what you're doing
 ## Documentation Variants to Test
 
 ### NULL (Baseline - no skills doc)
-No mention of skills in CLAUDE.md at all.
+No mention of skills in superpowers-rule.md at all.
 
 ### Variant A: Soft Suggestion
 ```markdown

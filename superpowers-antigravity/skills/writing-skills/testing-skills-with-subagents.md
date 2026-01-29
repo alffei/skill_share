@@ -12,7 +12,7 @@ You run scenarios without the skill (RED - watch agent fail), write skill addres
 
 **REQUIRED BACKGROUND:** You MUST understand superpowers:test-driven-development before using this skill. That skill defines the fundamental RED-GREEN-REFACTOR cycle. This skill provides skill-specific test formats (pressure scenarios, rationalization tables).
 
-**Complete worked example:** See examples/CLAUDE_MD_TESTING.md for a full test campaign testing CLAUDE.md documentation variants.
+**Complete worked example:** See examples/SUPERPOWERS_RULE_TESTING.md for a full test campaign testing superpowers-rule documentation variants.
 
 ## When to Use
 
@@ -29,14 +29,14 @@ Don't test:
 
 ## TDD Mapping for Skill Testing
 
-| TDD Phase | Skill Testing | What You Do |
-|-----------|---------------|-------------|
-| **RED** | Baseline test | Run scenario WITHOUT skill, watch agent fail |
-| **Verify RED** | Capture rationalizations | Document exact failures verbatim |
-| **GREEN** | Write skill | Address specific baseline failures |
-| **Verify GREEN** | Pressure test | Run scenario WITH skill, verify compliance |
-| **REFACTOR** | Plug holes | Find new rationalizations, add counters |
-| **Stay GREEN** | Re-verify | Test again, ensure still compliant |
+| TDD Phase        | Skill Testing            | What You Do                                  |
+| ---------------- | ------------------------ | -------------------------------------------- |
+| **RED**          | Baseline test            | Run scenario WITHOUT skill, watch agent fail |
+| **Verify RED**   | Capture rationalizations | Document exact failures verbatim             |
+| **GREEN**        | Write skill              | Address specific baseline failures           |
+| **Verify GREEN** | Pressure test            | Run scenario WITH skill, verify compliance   |
+| **REFACTOR**     | Plug holes               | Find new rationalizations, add counters      |
+| **Stay GREEN**   | Re-verify                | Test again, ensure still compliant           |
 
 Same cycle as code TDD, different test format.
 
@@ -127,15 +127,15 @@ Forces explicit choice.
 
 ### Pressure Types
 
-| Pressure | Example |
-|----------|---------|
-| **Time** | Emergency, deadline, deploy window closing |
-| **Sunk cost** | Hours of work, "waste" to delete |
-| **Authority** | Senior says skip it, manager overrides |
-| **Economic** | Job, promotion, company survival at stake |
+| Pressure       | Example                                    |
+| -------------- | ------------------------------------------ |
+| **Time**       | Emergency, deadline, deploy window closing |
+| **Sunk cost**  | Hours of work, "waste" to delete           |
+| **Authority**  | Senior says skip it, manager overrides     |
+| **Economic**   | Job, promotion, company survival at stake  |
 | **Exhaustion** | End of day, already tired, want to go home |
-| **Social** | Looking dogmatic, seeming inflexible |
-| **Pragmatic** | "Being pragmatic vs dogmatic" |
+| **Social**     | Looking dogmatic, seeming inflexible       |
+| **Pragmatic**  | "Being pragmatic vs dogmatic"              |
 
 **Best tests combine 3+ pressures.**
 
@@ -202,8 +202,8 @@ Write code before test? Delete it. Start over.
 ### 2. Entry in Rationalization Table
 
 ```markdown
-| Excuse | Reality |
-|--------|---------|
+| Excuse                                 | Reality                                                     |
+| -------------------------------------- | ----------------------------------------------------------- |
 | "Keep as reference, write tests first" | You'll adapt it. That's testing after. Delete means delete. |
 ```
 
@@ -357,14 +357,14 @@ Tests pass once ≠ bulletproof.
 
 ## Quick Reference (TDD Cycle)
 
-| TDD Phase | Skill Testing | Success Criteria |
-|-----------|---------------|------------------|
-| **RED** | Run scenario without skill | Agent fails, document rationalizations |
-| **Verify RED** | Capture exact wording | Verbatim documentation of failures |
-| **GREEN** | Write skill addressing failures | Agent now complies with skill |
-| **Verify GREEN** | Re-test scenarios | Agent follows rule under pressure |
-| **REFACTOR** | Close loopholes | Add counters for new rationalizations |
-| **Stay GREEN** | Re-verify | Agent still complies after refactoring |
+| TDD Phase        | Skill Testing                   | Success Criteria                       |
+| ---------------- | ------------------------------- | -------------------------------------- |
+| **RED**          | Run scenario without skill      | Agent fails, document rationalizations |
+| **Verify RED**   | Capture exact wording           | Verbatim documentation of failures     |
+| **GREEN**        | Write skill addressing failures | Agent now complies with skill          |
+| **Verify GREEN** | Re-test scenarios               | Agent follows rule under pressure      |
+| **REFACTOR**     | Close loopholes                 | Add counters for new rationalizations  |
+| **Stay GREEN**   | Re-verify                       | Agent still complies after refactoring |
 
 ## The Bottom Line
 

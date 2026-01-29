@@ -29,18 +29,18 @@ A **skill** is a reference guide for proven techniques, patterns, or tools. Skil
 
 ## TDD Mapping for Skills
 
-| TDD Concept | Skill Creation |
-|-------------|----------------|
-| **Test case** | Pressure scenario with subagent |
-| **Production code** | Skill document (SKILL.md) |
-| **Test fails (RED)** | Agent violates rule without skill (baseline) |
-| **Test passes (GREEN)** | Agent complies with skill present |
-| **Refactor** | Close loopholes while maintaining compliance |
-| **Write test first** | Run baseline scenario BEFORE writing skill |
-| **Watch it fail** | Document exact rationalizations agent uses |
-| **Minimal code** | Write skill addressing those specific violations |
-| **Watch it pass** | Verify agent now complies |
-| **Refactor cycle** | Find new rationalizations → plug → re-verify |
+| TDD Concept             | Skill Creation                                   |
+| ----------------------- | ------------------------------------------------ |
+| **Test case**           | Pressure scenario with subagent                  |
+| **Production code**     | Skill document (SKILL.md)                        |
+| **Test fails (RED)**    | Agent violates rule without skill (baseline)     |
+| **Test passes (GREEN)** | Agent complies with skill present                |
+| **Refactor**            | Close loopholes while maintaining compliance     |
+| **Write test first**    | Run baseline scenario BEFORE writing skill       |
+| **Watch it fail**       | Document exact rationalizations agent uses       |
+| **Minimal code**        | Write skill addressing those specific violations |
+| **Watch it pass**       | Verify agent now complies                        |
+| **Refactor cycle**      | Find new rationalizations → plug → re-verify     |
 
 The entire skill creation process follows RED-GREEN-REFACTOR.
 
@@ -55,7 +55,7 @@ The entire skill creation process follows RED-GREEN-REFACTOR.
 **Don't create for:**
 - One-off solutions
 - Standard practices well-documented elsewhere
-- Project-specific conventions (put in CLAUDE.md)
+- Project-specific conventions (put in superpowers-rule.md)
 - Mechanical constraints (if it's enforceable with regex/validation, automate it—save documentation for judgment calls)
 
 ## Skill Types
@@ -443,16 +443,16 @@ Different skill types need different test approaches:
 
 ## Common Rationalizations for Skipping Testing
 
-| Excuse | Reality |
-|--------|---------|
-| "Skill is obviously clear" | Clear to you ≠ clear to other agents. Test it. |
-| "It's just a reference" | References can have gaps, unclear sections. Test retrieval. |
-| "Testing is overkill" | Untested skills have issues. Always. 15 min testing saves hours. |
-| "I'll test if problems emerge" | Problems = agents can't use skill. Test BEFORE deploying. |
-| "Too tedious to test" | Testing is less tedious than debugging bad skill in production. |
-| "I'm confident it's good" | Overconfidence guarantees issues. Test anyway. |
-| "Academic review is enough" | Reading ≠ using. Test application scenarios. |
-| "No time to test" | Deploying untested skill wastes more time fixing it later. |
+| Excuse                         | Reality                                                          |
+| ------------------------------ | ---------------------------------------------------------------- |
+| "Skill is obviously clear"     | Clear to you ≠ clear to other agents. Test it.                   |
+| "It's just a reference"        | References can have gaps, unclear sections. Test retrieval.      |
+| "Testing is overkill"          | Untested skills have issues. Always. 15 min testing saves hours. |
+| "I'll test if problems emerge" | Problems = agents can't use skill. Test BEFORE deploying.        |
+| "Too tedious to test"          | Testing is less tedious than debugging bad skill in production.  |
+| "I'm confident it's good"      | Overconfidence guarantees issues. Test anyway.                   |
+| "Academic review is enough"    | Reading ≠ using. Test application scenarios.                     |
+| "No time to test"              | Deploying untested skill wastes more time fixing it later.       |
 
 **All of these mean: Test before deploying. No exceptions.**
 
@@ -499,10 +499,10 @@ This cuts off entire class of "I'm following the spirit" rationalizations.
 Capture rationalizations from baseline testing (see Testing section below). Every excuse agents make goes in the table:
 
 ```markdown
-| Excuse | Reality |
-|--------|---------|
-| "Too simple to test" | Simple code breaks. Test takes 30 seconds. |
-| "I'll test after" | Tests passing immediately prove nothing. |
+| Excuse                           | Reality                                                                 |
+| -------------------------------- | ----------------------------------------------------------------------- |
+| "Too simple to test"             | Simple code breaks. Test takes 30 seconds.                              |
+| "I'll test after"                | Tests passing immediately prove nothing.                                |
 | "Tests after achieve same goals" | Tests-after = "what does this do?" Tests-first = "what should this do?" |
 ```
 
