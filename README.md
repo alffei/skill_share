@@ -9,10 +9,11 @@
 ```text
 .
 ├── spec-architect/           # Spec 架构师技能
-├── RuoYi-Code-Generator/      # 若依代码生成器技能
-├── SpringBoot-Init/          # Spring Boot 初始化技能
+├── ruoyi-code-generator/      # 若依代码生成器技能
+├── springboot-init/          # Spring Boot 初始化技能
 ├── wechat-operation/         # 公众号运营技能
 ├── superpowers-antigravity/  # Antigravity 核心能力集 (移植自 Superpowers)
+├── skill-installer/           # 技能安装器 (一键安装/更新技能)
 └── README.md
 ```
 
@@ -68,22 +69,38 @@
 
 **适用场景**: 复杂业务开发、系统重构、深度 Bug 修复。
 
+### 6. [Skill-Installer](./skill-installer/README.md)
+**角色**: 技能管理专家
+**核心价值**: 简化技能的发现与安装过程，支持从 GitHub 仓库或精选列表一键部署技能到 Antigravity。
+**关键特性**:
+- **多源支持**: 支持 GitHub 仓库 URL 或仓库路径安装。
+- **灵活部署**: 支持安装到全局目录或当前项目工作区。
+- **自动搜索**: 支持列出推荐的官方/社区技能。
+
+**适用场景**: 环境初始化、快速安装新工具、跨项目同步技能。
+
 ## 🚀 如何使用
 
+### 方式一：快速安装 (推荐)
+如果您已经安装了 `Skill-Installer`，可以直接使用斜杠命令安装其他技能：
+```bash
+/skill-installer
+```
+
+### 方式二：手动添加技能与工作流
 1. **克隆仓库**:
    ```bash
    git clone https://github.com/alffei/skill_share.git
    ```
 
-2. **添加技能与工作流**:
-   Antigravity 依赖项目根目录下的 `.agent` 目录来识别内容。
-   - **创建目录**: 如果项目根目录下没有 `.agent` 文件夹，请手动创建一个。
-   - **移动技能**: 将需要的技能文件夹（如 `spec-architect`）复制到 `.agent/skills/` 目录下。
-   - **移动工作流**: 将 `workflows` 文件夹复制到 `.agent/` 目录下。
+2. **移动内容**:
+   Antigravity 依赖项目根目录下的 `.agent` 目录来识别技能和工作流。
+   - **Skills**: 将 `skill-installer/skills/skill-installer` 等文件夹复制到 `.agent/skills/` 目录下。
+   - **Workflows**: 将 `skill-installer/workflows/` 中的 `.md` 文件复制到 `.agent/workflows/` 目录下。
 
 3. **激活与刷新**:
    - **Skills**: 会在 Agent 处理任务时根据上下文自动加载。
-   - **Workflows**: 对于新增或修改的工作流，您需要前往 Antigravity 的 **Customizations** 页面点击 **Refresh** 按钮，以确保斜杠命令生效。
+   - **Workflows**: 对于新增或修改的工作流，您需要前往 Antigravity 的 **Customizations** 页面点击 **Refresh** 按钮。
 
 ## ✍️ 贡献指南
 
@@ -93,4 +110,4 @@
 4. 提交 Pull Request！
 
 ---
-Built with [AI 神经] for AI Agents.
+Built with [AI神经] for AI Agents.
