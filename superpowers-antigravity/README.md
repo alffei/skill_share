@@ -23,5 +23,11 @@ Antigravity 会自动检索 `.agent/skills/` 目录。在处理任务时，Agent
 - `/execute-plan`：批量执行任务计划并进行阶段性审查。
 - `/git-commit`：按照规范生成中文提交信息。
 
+### 4. 规则注入 (Rules)
+为了确保 Agent 始终遵循 Superpowers 的核心准则，建议配置规则：
+- **方案 A (推荐)**：在你的全局 `GEMINI.md` 规则中添加 `@./skills/using-superpowers/SKILL.md`。
+- **方案 B**：直接使用本项目提供的 `rules/superpowers-rule.md` 作为项目的核心 Rule。
+
+
 ---
 *注：本项目中的能力集基于 Superpowers v4.x 移植。*
