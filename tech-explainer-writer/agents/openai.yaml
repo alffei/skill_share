@@ -1,0 +1,4 @@
+interface:
+  display_name: "科技科普写作"
+  short_description: "把复杂技术、机制与趋势写给大众看懂"
+  default_prompt: "Use $tech-explainer-writer to explain this technical topic in clear, popular-science language for general readers."
