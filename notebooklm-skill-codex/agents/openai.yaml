@@ -1,0 +1,7 @@
+interface:
+  display_name: "NotebookLM Research"
+  short_description: "Query NotebookLM for source-grounded document answers"
+  default_prompt: "Use $notebooklm to query a NotebookLM notebook and synthesize a grounded answer from the uploaded sources."
+
+policy:
+  allow_implicit_invocation: true
