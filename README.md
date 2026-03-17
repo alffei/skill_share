@@ -2,6 +2,8 @@
 
 这是一个专门用来分享 **Agent Skill** 的项目，主要包含一些自建自用的技能，旨在提升 AI Agent 在特定场景下的处理效率和标准化程度。
 
+当前仓库同时包含适配 **Antigravity** 与 **Codex** 的 skill，可按各自运行环境选择安装。
+
 ## 📁 目录结构
 
 每个技能都位于独立的文件夹中，包含核心的 `SKILL.md` 指令文件以及相关的模板或资源。
@@ -15,6 +17,7 @@
 ├── superpowers-antigravity/  # Antigravity 核心能力集 (移植自 Superpowers)
 ├── skill-installer/           # 技能安装器 (一键安装/更新技能)
 ├── draw-io/                  # draw-io 图表工程化技能
+├── notebooklm-skill-codex/   # Codex 版 NotebookLM 本地检索技能
 └── README.md
 ```
 
@@ -91,6 +94,17 @@
 
 **适用场景**: 创建架构图、技术文档绘图、AWS 方案设计、图表风格统一化。
 
+### 8. [NotebookLM-Skill-Codex](./notebooklm-skill-codex/README.md)
+**角色**: Codex 本地 NotebookLM 检索助手
+**核心价值**: 通过本地浏览器自动化调用 Google NotebookLM，基于用户已上传资料获取带来源约束的回答，减少大文档直接塞给模型造成的上下文浪费与幻觉风险。
+**关键特性**:
+- **Codex 适配**: 按 Codex skill 目录结构组织，可直接放入 `~/.codex/skills/notebooklm/` 使用。
+- **浏览器自动化**: 支持可见浏览器登录 Google / NotebookLM，并维护本地登录状态。
+- **Notebook 管理**: 支持本地保存、列出、添加和查询 NotebookLM notebook。
+- **来源约束问答**: 围绕已上传资料提问、追问并综合整理结果。
+
+**适用场景**: 基于资料库问答、长文档检索增强、需要 NotebookLM 来源约束回答的本地 Codex 工作流。
+
 ## 🚀 如何使用
 
 ### 方式一：快速安装 (推荐)
@@ -113,6 +127,28 @@
 3. **激活与刷新**:
    - **Skills**: 会在 Agent 处理任务时根据上下文自动加载。
    - **Workflows**: 对于新增或修改的工作流，您需要前往 Antigravity 的 **Customizations** 页面点击 **Refresh** 按钮。
+
+### 方式三：安装到 Codex
+如果您希望在本地 Codex 中使用 `NotebookLM-Skill-Codex`，可将该目录复制或克隆到 `~/.codex/skills/notebooklm/`：
+
+```bash
+git clone https://github.com/alffei/skill_share.git
+mkdir -p ~/.codex/skills
+cp -R skill_share/notebooklm-skill-codex ~/.codex/skills/notebooklm
+```
+
+安装完成后，目录结构应类似：
+
+```text
+~/.codex/skills/notebooklm/
+├── SKILL.md
+├── agents/
+├── scripts/
+├── references/
+└── requirements.txt
+```
+
+首次使用前，建议参考 [`notebooklm-skill-codex/README.md`](./notebooklm-skill-codex/README.md) 完成认证与环境准备。
 
 ## ✍️ 贡献指南
 
