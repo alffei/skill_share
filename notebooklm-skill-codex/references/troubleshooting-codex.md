@@ -31,6 +31,8 @@ python scripts/run.py auth_manager.py reauth
 
 Run the wrapper again first. It bootstraps `.venv` automatically.
 
+If a previous setup was interrupted, rerunning the wrapper will now repair the partial `.venv` instead of treating it as healthy.
+
 If setup partially succeeded, activate the environment and install manually:
 
 ```bash
@@ -38,6 +40,30 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 python -m patchright install chrome
+```
+
+## Setup appears stuck at "Installing dependencies..."
+
+Recent versions of the wrapper print pip output directly. If it still stops there for a while, the usual cause is network or DNS access to PyPI.
+
+Try a reachable mirror:
+
+```bash
+export NOTEBOOKLM_PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
+python scripts/run.py auth_manager.py status
+```
+
+Optional tuning:
+
+```bash
+export NOTEBOOKLM_PIP_TIMEOUT=15
+export NOTEBOOKLM_PIP_RETRIES=1
+```
+
+If you want to inspect environment state before retrying:
+
+```bash
+python scripts/setup_environment.py --check
 ```
 
 ## NotebookLM UI changed and selectors fail

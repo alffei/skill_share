@@ -10,6 +10,9 @@ import subprocess
 from pathlib import Path
 
 
+READY_MARKER_NAME = ".notebooklm-skill-ready"
+
+
 def get_venv_python():
     """Get the virtual environment Python executable"""
     skill_dir = Path(__file__).parent.parent
@@ -27,11 +30,17 @@ def ensure_venv():
     """Ensure virtual environment exists"""
     skill_dir = Path(__file__).parent.parent
     venv_dir = skill_dir / ".venv"
+    ready_marker = venv_dir / READY_MARKER_NAME
     setup_script = skill_dir / "scripts" / "setup_environment.py"
+    venv_python = get_venv_python()
 
-    # Check if venv exists
-    if not venv_dir.exists():
-        print("🔧 First-time setup: Creating virtual environment...")
+    # Check if venv exists and completed setup
+    if not venv_dir.exists() or not venv_python.exists() or not ready_marker.exists():
+        if not venv_dir.exists():
+            print("🔧 First-time setup: Creating virtual environment...")
+        else:
+            print("🔧 Repairing skill environment...")
+            print("   Existing .venv was found, but setup did not complete.")
         print("   This may take a minute...")
 
         # Run setup with system Python

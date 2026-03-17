@@ -23,6 +23,8 @@ python scripts/run.py <script> [args...]
 
 Do not call scripts in `scripts/` directly unless you are debugging the skill itself. The wrapper creates `.venv`, installs dependencies, and runs the script with the correct interpreter.
 
+If the first setup is interrupted, rerun the same wrapper command. The wrapper now repairs incomplete `.venv` directories automatically.
+
 ## When to use
 
 Trigger this skill when the user:
@@ -122,6 +124,8 @@ Read [troubleshooting-codex.md](./references/troubleshooting-codex.md) when:
 - Skill data is stored under the skill directory in `data/`.
 - First use creates `.venv` in the skill directory.
 - Environment setup installs Python dependencies and Patchright's Chrome runtime.
+- Dependency installation streams pip output so DNS or mirror failures are visible instead of appearing stuck.
+- `NOTEBOOKLM_PIP_INDEX_URL` can be used to point pip at a reachable package mirror.
 - Authentication uses a persistent browser profile plus saved storage state.
 - Free Google accounts may hit NotebookLM rate limits.
 

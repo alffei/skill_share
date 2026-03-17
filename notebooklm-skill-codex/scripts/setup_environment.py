@@ -14,11 +14,18 @@ from pathlib import Path
 class SkillEnvironment:
     """Manages skill-specific virtual environment"""
 
+    READY_MARKER_NAME = ".notebooklm-skill-ready"
+    REQUIRED_IMPORTS = (
+        "from patchright.sync_api import sync_playwright",
+        "from dotenv import load_dotenv",
+    )
+
     def __init__(self):
         # Skill directory paths
         self.skill_dir = Path(__file__).parent.parent
         self.venv_dir = self.skill_dir / ".venv"
         self.requirements_file = self.skill_dir / "requirements.txt"
+        self.ready_marker = self.venv_dir / self.READY_MARKER_NAME
 
         # Python executable in venv
         if os.name == 'nt':  # Windows
@@ -31,11 +38,6 @@ class SkillEnvironment:
     def ensure_venv(self) -> bool:
         """Ensure virtual environment exists and is set up"""
 
-        # Check if we're already in the correct venv
-        if self.is_in_skill_venv():
-            print("✅ Already running in skill virtual environment")
-            return True
-
         # Create venv if it doesn't exist
         if not self.venv_dir.exists():
             print(f"🔧 Creating virtual environment in {self.venv_dir.name}/")
@@ -45,25 +47,31 @@ class SkillEnvironment:
             except Exception as e:
                 print(f"❌ Failed to create venv: {e}")
                 return False
+        elif not self.venv_python.exists() or not self.venv_pip.exists():
+            print("⚠️ Existing virtual environment is incomplete. Recreating it...")
+            self.recreate_venv()
+            try:
+                venv.create(self.venv_dir, with_pip=True)
+                print("✅ Virtual environment recreated")
+            except Exception as e:
+                print(f"❌ Failed to recreate venv: {e}")
+                return False
+
+        if self.is_environment_ready():
+            if self.is_in_skill_venv():
+                print("✅ Already running in skill virtual environment")
+            else:
+                print("✅ Skill environment already ready")
+            return True
 
         # Install/update dependencies
         if self.requirements_file.exists():
             print("📦 Installing dependencies...")
             try:
-                # Upgrade pip first
-                subprocess.run(
-                    [str(self.venv_pip), "install", "--upgrade", "pip"],
-                    check=True,
-                    capture_output=True,
-                    text=True
-                )
-
-                # Install requirements
-                result = subprocess.run(
-                    [str(self.venv_pip), "install", "-r", str(self.requirements_file)],
-                    check=True,
-                    capture_output=True,
-                    text=True
+                self.remove_ready_marker()
+                self.run_pip_install(
+                    ["-r", str(self.requirements_file)],
+                    description="Python dependencies"
                 )
                 print("✅ Dependencies installed")
 
@@ -72,11 +80,10 @@ class SkillEnvironment:
                 # See: https://github.com/Kaliiiiiiiiii-Vinyzu/patchright-python#anti-detection
                 print("🌐 Installing Google Chrome for Patchright...")
                 try:
-                    subprocess.run(
+                    self.run_subprocess(
                         [str(self.venv_python), "-m", "patchright", "install", "chrome"],
                         check=True,
-                        capture_output=True,
-                        text=True
+                        description="Patchright Chrome runtime"
                     )
                     print("✅ Chrome installed")
                 except subprocess.CalledProcessError as e:
@@ -84,13 +91,15 @@ class SkillEnvironment:
                     print("   You may need to run manually: python -m patchright install chrome")
                     print("   Chrome is required (not Chromium) for reliability!")
 
+                self.write_ready_marker()
                 return True
             except subprocess.CalledProcessError as e:
                 print(f"❌ Failed to install dependencies: {e}")
-                print(f"   Output: {e.output if hasattr(e, 'output') else 'No output'}")
+                self.print_dependency_help()
                 return False
         else:
             print("⚠️ No requirements.txt found, skipping dependency installation")
+            self.write_ready_marker()
             return True
 
     def is_in_skill_venv(self) -> bool:
@@ -106,6 +115,85 @@ class SkillEnvironment:
         if self.venv_python.exists():
             return str(self.venv_python)
         return sys.executable
+
+    def is_environment_ready(self) -> bool:
+        """Check whether the venv and required packages are usable"""
+        if not self.venv_python.exists() or not self.venv_pip.exists():
+            return False
+
+        if not self.has_required_imports():
+            return False
+
+        if not self.ready_marker.exists():
+            self.write_ready_marker()
+
+        return True
+
+    def has_required_imports(self) -> bool:
+        """Check whether the required Python packages can be imported"""
+        check_code = "; ".join(self.REQUIRED_IMPORTS)
+        result = subprocess.run(
+            [str(self.venv_python), "-c", check_code],
+            capture_output=True,
+            text=True
+        )
+        return result.returncode == 0
+
+    def recreate_venv(self) -> None:
+        """Remove a broken venv before recreating it"""
+        import shutil
+
+        shutil.rmtree(self.venv_dir, ignore_errors=True)
+
+    def remove_ready_marker(self) -> None:
+        """Clear the ready marker when setup is incomplete"""
+        if self.ready_marker.exists():
+            self.ready_marker.unlink()
+
+    def write_ready_marker(self) -> None:
+        """Write a marker file after setup completes successfully"""
+        self.ready_marker.write_text("ready\n")
+
+    def run_subprocess(self, cmd: list, check: bool, description: str) -> subprocess.CompletedProcess:
+        """Run a subprocess and stream its output to the terminal"""
+        print(f"   -> {description}: {' '.join(cmd)}")
+        return subprocess.run(cmd, check=check, text=True)
+
+    def run_pip_install(self, pip_args: list, description: str) -> None:
+        """Install packages with visible output and shorter retry windows"""
+        retries = os.environ.get("NOTEBOOKLM_PIP_RETRIES", "1")
+        timeout = os.environ.get("NOTEBOOKLM_PIP_TIMEOUT", "15")
+        index_url = os.environ.get("NOTEBOOKLM_PIP_INDEX_URL") or os.environ.get("PIP_INDEX_URL")
+
+        cmd = [
+            str(self.venv_python),
+            "-m",
+            "pip",
+            "--disable-pip-version-check",
+            "install",
+            "--no-cache-dir",
+            "--progress-bar",
+            "off",
+            "--retries",
+            retries,
+            "--timeout",
+            timeout,
+        ]
+        if index_url:
+            cmd.extend(["-i", index_url])
+            print(f"   Using package index: {index_url}")
+
+        cmd.extend(pip_args)
+        self.run_subprocess(cmd, check=True, description=description)
+
+    def print_dependency_help(self) -> None:
+        """Print actionable hints when dependency installation fails"""
+        mirror_url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+        print("   Common causes: DNS resolution failure, no outbound network, or a blocked PyPI mirror.")
+        print("   If you are in mainland China, try:")
+        print(f"   export NOTEBOOKLM_PIP_INDEX_URL={mirror_url}")
+        print("   Then rerun: python scripts/run.py auth_manager.py status")
+        print("   If setup was interrupted previously, the wrapper will repair the existing .venv on the next run.")
 
     def run_script(self, script_name: str, args: list = None) -> int:
         """Run a script with the virtual environment"""
@@ -175,8 +263,13 @@ def main():
     env = SkillEnvironment()
 
     if args.check:
-        if env.venv_dir.exists():
+        if env.is_environment_ready():
+            print(f"✅ Environment is ready: {env.venv_dir}")
+            print(f"   Python: {env.get_python_executable()}")
+            print(f"   To activate manually: {env.activate_instructions()}")
+        elif env.venv_dir.exists():
             print(f"✅ Virtual environment exists: {env.venv_dir}")
+            print("   Status: incomplete setup, rerun setup_environment.py to repair it")
             print(f"   Python: {env.get_python_executable()}")
             print(f"   To activate manually: {env.activate_instructions()}")
         else:

@@ -64,6 +64,14 @@ git clone <repo-url> notebooklm
 python scripts/run.py auth_manager.py status
 ```
 
+首次执行会自动：
+
+- 创建 `.venv`
+- 安装 `requirements.txt` 中的依赖
+- 安装 Patchright 使用的 Chrome 运行时
+
+如果之前初始化被中断，重新执行同一个命令即可。新的启动逻辑会识别并修复“不完整 `.venv`”。
+
 如果尚未登录，执行：
 
 ```bash
@@ -71,6 +79,26 @@ python scripts/run.py auth_manager.py setup
 ```
 
 浏览器会打开，用户需要手动完成 Google 登录。
+
+## 安装行为与镜像源
+
+依赖安装现在会直接输出 `pip` 日志，不再长时间静默停在 `Installing dependencies...`。
+
+如果你的网络无法访问 `pypi.org`，可以先指定镜像源再运行命令：
+
+```bash
+export NOTEBOOKLM_PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
+python scripts/run.py auth_manager.py status
+```
+
+也支持调整 pip 超时和重试次数：
+
+```bash
+export NOTEBOOKLM_PIP_TIMEOUT=15
+export NOTEBOOKLM_PIP_RETRIES=1
+```
+
+默认策略会尽快失败并给出提示，避免首次安装在无输出状态下长时间等待。
 
 ## 常用命令
 
@@ -100,6 +128,7 @@ python scripts/run.py ask_question.py \
 
 - skill 数据保存在当前 skill 目录下的 `data/`
 - 首次运行会自动生成 `.venv`
+- `.venv/.notebooklm-skill-ready` 用于标记初始化是否完整
 - 当前实现使用 Patchright，并安装 `chrome` 运行时
 - 每次提问默认会打开新的浏览器会话
 - 如果 NotebookLM 页面结构变化，脚本中的选择器可能需要更新
