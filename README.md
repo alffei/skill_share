@@ -18,6 +18,7 @@
 ├── skill-installer/           # 技能安装器 (一键安装/更新技能)
 ├── draw-io/                  # draw-io 图表工程化技能
 ├── notebooklm-skill-codex/   # Codex 版 NotebookLM 本地检索技能
+├── adk-skill-design-patterns-zh/ # 5 种 AI Agent Skill 设计模式
 └── README.md
 ```
 
@@ -104,6 +105,17 @@
 - **来源约束问答**: 围绕已上传资料提问、追问并综合整理结果。
 
 **适用场景**: 基于资料库问答、长文档检索增强、需要 NotebookLM 来源约束回答的本地 Codex 工作流。
+
+### 9. [ADK-Skill-Design-Patterns-zh](./adk-skill-design-patterns-zh/README.md)
+**角色**: AI Agent Skill 设计专家
+**核心价值**: 深入解析 Google ADK 推出的 5 种核心 AI Agent Skill 设计模式，并提供完整的中文示例与说明。
+**关键特性**:
+- **五大经典模式**: 涵盖 Tool Wrapper, Generator, Reviewer, Inversion, Pipeline 模式。
+- **全中文翻译**: 核心 `SKILL.md` 文件深度中文化，大幅降低理解与迁移门槛。
+- **结构化设计**: 展示如何通过清单驱动、模板驱动、流程拆解等方式构建高质量的技能。
+- **可复用样板**: 提供标准的目录结构与指令组织方式，可作为新技能开发的脚手架。
+
+**适用场景**: 系统学习 Skill 设计模式、快速构建结构化 Agent 技能、提升复杂任务处理的稳定性。
 
 ## 🚀 如何使用
 
