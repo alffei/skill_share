@@ -1,13 +1,13 @@
 ---
 name: subagent-driven-development
-description: Use when executing implementation plans with independent tasks in the current session
+description: "Executes an implementation plan by dispatching a fresh subagent per task, running two-stage review (spec compliance then code quality) after each, and iterating until approved — managing the full cycle of implement → spec-review → quality-review → fix → re-review within one session. Use when executing implementation plans with independent tasks in the current session, dispatching subagents for plan execution, or running two-stage code review workflows."
 ---
 
 # Subagent-Driven Development
 
-Execute plan by dispatching fresh subagent per task, with two-stage review after each: spec compliance review first, then code quality review.
+Executes an implementation plan by dispatching a fresh subagent per task, with two-stage review after each: spec compliance first, then code quality.
 
-**Core principle:** Fresh subagent per task + two-stage review (spec then quality) = high quality, fast iteration
+**Core principle:** Fresh subagent per task + two-stage review (spec then quality) = high quality, fast iteration.
 
 ## When to Use
 
@@ -28,6 +28,11 @@ digraph when_to_use {
     "Stay in this session?" -> "executing-plans" [label="no - parallel session"];
 }
 ```
+
+- Have an implementation plan with independent tasks to execute
+- Want same-session execution with fresh subagents (no context pollution)
+- Need two-stage review (spec compliance + code quality) after each task
+- For parallel-session execution with human review gates, use `superpowers:executing-plans` instead
 
 **vs. Executing Plans (parallel session):**
 - Same session (no context switch)
@@ -84,9 +89,11 @@ digraph process {
 
 ## Prompt Templates
 
-- `./implementer-prompt.md` - Dispatch implementer subagent
-- `./spec-reviewer-prompt.md` - Dispatch spec compliance reviewer subagent
-- `./code-quality-reviewer-prompt.md` - Dispatch code quality reviewer subagent
+- `./implementer-prompt.md` — Dispatch implementer subagent
+- `./spec-reviewer-prompt.md` — Dispatch spec compliance reviewer subagent
+- `./code-quality-reviewer-prompt.md` — Dispatch code quality reviewer subagent
+
+**Validation:** All three templates must be filled before dispatching each task cycle.
 
 ## Example Workflow
 

@@ -1,28 +1,29 @@
 ---
 name: receiving-code-review
-description: Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation
+description: "Evaluates code review feedback with technical rigor before implementing — restating requirements, verifying against the codebase, pushing back on incorrect suggestions, and implementing fixes one at a time with tests. Use when receiving code review feedback, before implementing reviewer suggestions, or when feedback seems unclear or technically questionable."
 ---
 
 # Code Review Reception
 
-## Overview
-
-Code review requires technical evaluation, not emotional performance.
+Evaluates code review feedback with technical rigor rather than performative agreement — verifying suggestions against codebase reality before implementing.
 
 **Core principle:** Verify before implementing. Ask before assuming. Technical correctness over social comfort.
 
-## The Response Pattern
+## When to Use
 
-```
-WHEN receiving code review feedback:
+- Received inline review comments or summary feedback on a PR
+- A reviewer suggested changes that need technical evaluation
+- Feedback seems unclear, incomplete, or technically questionable
+- Multiple review items need triage and ordered implementation
 
-1. READ: Complete feedback without reacting
-2. UNDERSTAND: Restate requirement in own words (or ask)
-3. VERIFY: Check against codebase reality
-4. EVALUATE: Technically sound for THIS codebase?
-5. RESPOND: Technical acknowledgment or reasoned pushback
-6. IMPLEMENT: One item at a time, test each
-```
+## Workflow
+
+### 1. Read — Complete feedback without reacting
+### 2. Understand — Restate requirement in own words (or ask for clarification)
+### 3. Verify — Check suggestion against codebase reality
+### 4. Evaluate — Technically sound for THIS codebase?
+### 5. Respond — Technical acknowledgment or reasoned pushback
+### 6. Implement — One item at a time, test each
 
 ## Forbidden Responses
 

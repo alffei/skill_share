@@ -1,13 +1,13 @@
 ---
 name: using-git-worktrees
-description: Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verification
+description: "Use when starting feature work that needs isolation from the current workspace, before executing implementation plans, or when working on multiple branches simultaneously. Creates isolated git worktrees with smart directory selection and safety verification."
 ---
 
 # Using Git Worktrees
 
 ## Overview
 
-Git worktrees create isolated workspaces sharing the same repository, allowing work on multiple branches simultaneously without switching.
+Creates isolated workspaces sharing the same repository, enabling work on multiple branches simultaneously without switching.
 
 **Core principle:** Systematic directory selection + safety verification = reliable isolation.
 
@@ -74,66 +74,32 @@ No .gitignore verification needed - outside project entirely.
 
 ## Creation Steps
 
-### 1. Detect Project Name
+### 1. Detect Project and Create Worktree
 
 ```bash
 project=$(basename "$(git rev-parse --show-toplevel)")
-```
-
-### 2. Create Worktree
-
-```bash
-# Determine full path
-case $LOCATION in
-  .worktrees|worktrees)
-    path="$LOCATION/$BRANCH_NAME"
-    ;;
-  ~/.config/superpowers/worktrees/*)
-    path="~/.config/superpowers/worktrees/$project/$BRANCH_NAME"
-    ;;
-esac
-
-# Create worktree with new branch
+# path determined by directory selection above
 git worktree add "$path" -b "$BRANCH_NAME"
 cd "$path"
 ```
 
-### 3. Run Project Setup
+**Checkpoint:** Does `git worktree list` show the new worktree?
 
-Auto-detect and run appropriate setup:
-
-```bash
-# Node.js
-if [ -f package.json ]; then npm install; fi
-
-# Rust
-if [ -f Cargo.toml ]; then cargo build; fi
-
-# Python
-if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-if [ -f pyproject.toml ]; then poetry install; fi
-
-# Go
-if [ -f go.mod ]; then go mod download; fi
-```
-
-### 4. Verify Clean Baseline
-
-Run tests to ensure worktree starts clean:
+### 2. Run Project Setup (auto-detect)
 
 ```bash
-# Examples - use project-appropriate command
-npm test
-cargo test
-pytest
-go test ./...
+[ -f package.json ] && npm install
+[ -f Cargo.toml ] && cargo build
+[ -f requirements.txt ] && pip install -r requirements.txt
+[ -f pyproject.toml ] && poetry install
+[ -f go.mod ] && go mod download
 ```
 
-**If tests fail:** Report failures, ask whether to proceed or investigate.
+### 3. Verify Clean Baseline
 
-**If tests pass:** Report ready.
+Run project-appropriate test command. **If tests fail:** report failures, ask whether to proceed. **If tests pass:** report ready.
 
-### 5. Report Location
+### 4. Report Location
 
 ```
 Worktree ready at <full-path>
