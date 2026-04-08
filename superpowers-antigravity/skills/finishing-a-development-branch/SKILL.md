@@ -1,19 +1,23 @@
 ---
 name: finishing-a-development-branch
-description: Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup
+description: "Guides completion of development work by verifying tests pass, presenting four structured integration options (merge, PR, keep, discard), executing the chosen workflow, and cleaning up worktrees. Use when implementation is complete, all tests pass, and you need to decide how to integrate the work into the base branch."
 ---
 
 # Finishing a Development Branch
 
-## Overview
-
-Guide completion of development work by presenting clear options and handling chosen workflow.
+Guides completion of development work by presenting clear integration options and handling the chosen workflow including worktree cleanup.
 
 **Core principle:** Verify tests → Present options → Execute choice → Clean up.
 
 **Announce at start:** "I'm using the finishing-a-development-branch skill to complete this work."
 
-## The Process
+## When to Use
+
+- Implementation is complete and all tests pass
+- Need to decide between merge, PR, keep, or discard for a feature branch
+- Called by `superpowers:subagent-driven-development` (Step 7) or `superpowers:executing-plans` (Step 5) after all tasks complete
+
+## Workflow
 
 ### Step 1: Verify Tests
 

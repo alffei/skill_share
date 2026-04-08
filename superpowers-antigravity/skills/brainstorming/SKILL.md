@@ -1,54 +1,84 @@
 ---
 name: brainstorming
-description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
+description: "Turns ideas into fully formed designs and specs through collaborative dialogue — asking one question at a time to refine intent, proposing multiple approaches with trade-offs, and presenting the design incrementally for validation. Use when starting any creative work such as creating features, building components, adding functionality, or modifying behavior before implementation begins."
 ---
 
 # Brainstorming Ideas Into Designs
 
-## Overview
+Turns ideas into fully formed designs through collaborative dialogue: understand context, refine intent with targeted questions, explore approaches, and present the design incrementally for validation.
 
-Help turn ideas into fully formed designs and specs through natural collaborative dialogue.
+## When to Use
 
-Start by understanding the current project context, then ask questions one at a time to refine the idea. Once you understand what you're building, present the design in small sections (200-300 words), checking after each section whether it looks right so far.
+- Starting a new feature, component, or significant behavior change
+- Exploring an idea before committing to implementation
+- Translating vague requirements into a concrete, actionable design
+- Before using `superpowers:writing-plans` to create an implementation plan
 
-## The Process
+## Workflow
 
-**Understanding the idea:**
-- Check out the current project state first (files, docs, recent commits)
-- Ask questions one at a time to refine the idea
-- Prefer multiple choice questions when possible, but open-ended is fine too
-- Only one question per message - if a topic needs more exploration, break it into multiple questions
-- Focus on understanding: purpose, constraints, success criteria
+### 1. Understand the Project Context
+- Read relevant files, docs, and recent commits
+- Identify existing patterns, constraints, and conventions
+- **Validation:** Confirm you can describe the current state of the area being changed
 
-**Exploring approaches:**
-- Propose 2-3 different approaches with trade-offs
-- Present options conversationally with your recommendation and reasoning
+### 2. Refine the Idea Through Questions
+- Ask **one question per message** — never batch multiple questions
+- Prefer **multiple choice** questions when possible (easier to answer)
+- Focus on: purpose, constraints, success criteria, edge cases
+- Continue until you can articulate what is being built and why
+
+### 3. Explore Approaches
+- Propose **2-3 approaches** with clear trade-offs
 - Lead with your recommended option and explain why
+- Wait for confirmation before proceeding to design
 
-**Presenting the design:**
-- Once you believe you understand what you're building, present the design
-- Break it into sections of 200-300 words
-- Ask after each section whether it looks right so far
+### 4. Present the Design Incrementally
+- Break the design into sections of **200-300 words**
+- After each section, ask: "Does this look right so far?"
 - Cover: architecture, components, data flow, error handling, testing
-- Be ready to go back and clarify if something doesn't make sense
+- Revise any section based on feedback before continuing
 
-## After the Design
-
-**Documentation:**
+### 5. Document the Design
 - Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md`
-- Use elements-of-style:writing-clearly-and-concisely skill if available
+- Use `elements-of-style:writing-clearly-and-concisely` skill if available
 - Commit the design document to git
 
-**Implementation (if continuing):**
+### 6. Transition to Implementation (Optional)
 - Ask: "Ready to set up for implementation?"
-- Use superpowers:using-git-worktrees to create isolated workspace
-- Use superpowers:writing-plans to create detailed implementation plan
+- Use `superpowers:using-git-worktrees` to create an isolated workspace
+- Use `superpowers:writing-plans` to create a detailed implementation plan
+
+## Example
+
+```
+User: "I want to add notifications to the app"
+
+[Step 1: Read existing code, find no notification system exists]
+
+You: "What kind of events should trigger a notification?
+  A) User actions (comments, mentions, assignments)
+  B) System events (deploys, failures, thresholds)
+  C) Both"
+
+User: "A — just user actions for now"
+
+You: "Should notifications be real-time (WebSocket) or polled?
+  A) Real-time push
+  B) Poll every N seconds
+  C) Start with polling, migrate to real-time later"
+
+User: "C"
+
+[Step 3: Present 2 approaches — event bus vs direct insertion]
+[Step 4: Present design in sections, validate each]
+[Step 5: Write to docs/plans/2025-03-25-notifications-design.md]
+```
 
 ## Key Principles
 
-- **One question at a time** - Don't overwhelm with multiple questions
-- **Multiple choice preferred** - Easier to answer than open-ended when possible
-- **YAGNI ruthlessly** - Remove unnecessary features from all designs
-- **Explore alternatives** - Always propose 2-3 approaches before settling
-- **Incremental validation** - Present design in sections, validate each
-- **Be flexible** - Go back and clarify when something doesn't make sense
+- **One question at a time** — do not overwhelm with multiple questions
+- **Multiple choice preferred** — easier to answer than open-ended
+- **YAGNI ruthlessly** — remove unnecessary features from all designs
+- **Explore alternatives** — always propose 2-3 approaches before settling
+- **Incremental validation** — present design in sections, validate each
+- **Be flexible** — go back and clarify when something does not make sense

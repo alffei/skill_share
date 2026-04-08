@@ -1,6 +1,6 @@
 ---
 name: dispatching-parallel-agents
-description: Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies
+description: "Dispatches one subagent per independent problem domain to investigate and fix multiple unrelated failures concurrently — grouping by subsystem, creating focused prompts with specific scope and constraints, and integrating results after parallel execution. Use when facing 2+ independent failures across different test files or subsystems that share no state, or when multiple bugs can be investigated without sequential dependencies."
 ---
 
 # Dispatching Parallel Agents
@@ -46,20 +46,24 @@ digraph when_to_use {
 
 ### 1. Identify Independent Domains
 
-Group failures by what's broken:
+Group failures by what is broken:
 - File A tests: Tool approval flow
 - File B tests: Batch completion behavior
 - File C tests: Abort functionality
 
-Each domain is independent - fixing tool approval doesn't affect abort tests.
+Each domain is independent — fixing tool approval does not affect abort tests.
+
+**Validation:** No two domains share mutable state or edit the same files.
 
 ### 2. Create Focused Agent Tasks
 
 Each agent gets:
 - **Specific scope:** One test file or subsystem
 - **Clear goal:** Make these tests pass
-- **Constraints:** Don't change other code
-- **Expected output:** Summary of what you found and fixed
+- **Constraints:** Do not change other code
+- **Expected output:** Summary of what was found and fixed
+
+**Validation:** Each prompt is self-contained — an agent can execute it without context from other prompts.
 
 ### 3. Dispatch in Parallel
 
@@ -74,10 +78,12 @@ Task("Fix tool-approval-race-conditions.test.ts failures")
 ### 4. Review and Integrate
 
 When agents return:
-- Read each summary
-- Verify fixes don't conflict
-- Run full test suite
-- Integrate all changes
+1. Read each summary
+2. Verify fixes do not conflict (no overlapping file edits)
+3. Run full test suite
+4. Integrate all changes
+
+**Validation:** Full test suite passes with all agent changes combined.
 
 ## Agent Prompt Structure
 
